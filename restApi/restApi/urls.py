@@ -20,5 +20,11 @@ from StreamVideo import views
 urlpatterns = [
     path('admin/',admin.site.urls),
     path('peliculas' , views.devolver_peliculas),
+    path('series' , views.devolver_series),
+    path('peliculas/<int:id_solicitado>' , views.devolver_peliculas_por_id),
+    path('series/<int:id_solicitado>' , views.devolver_series_por_id),
+    path('peliculas/<int:id_solicitado>/comentarios' , views.comentarios_Peliculas),
+    path('series/<int:id_solicitado>/comentarios' , views.comentarios_Series),
+    path('agregarUsuarios' , views.user_post),
 ]
 
