@@ -19,11 +19,9 @@ from StreamVideo import views
 
 urlpatterns = [
     path('admin/',admin.site.urls),
-    path('peliculas' , views.devolver_peliculas),
-    path('peliculas/<int:pelicula_id>/comentarios', views.comentarios_Peliculas),
-    path('series/<int:serie_id>/comentarios', views.comentarios_Series),
     path('peliculasPorNombre', views.peliculas_nombre),
     path('seriesPorNombre', views.series_nombre),
-    path('actoresPorNombre', views.actores_nombre)
+    path('actoresPorNombre', views.actores_nombre),
+    path('plataformas_nombre/<str:plataformas_name>', views.plataformas_nombre)
 ]
 

@@ -5,45 +5,11 @@ from django.views import View
 from .models import Peliculas
 from .models import Series
 from django.views.decorators.csrf import csrf_exempt
-from .models import Comentariospeliculas
-from .models import Comentariosseries
 from django.core.paginator import Paginator
 from .models import Actor
+from .models import Plataformas
 
 # Create your views here.
-def devolver_peliculas(request):
-	lista=Peliculas.objects.all()
-	respuesta_final=[]
-	for fila_sql in lista:
-		diccionario={}
-		diccionario['id']= fila_sql.id
-		diccionario['nombre']=fila_sql.nombre
-		diccionario['genero']=fila_sql.genero
-		respuesta_final.append(diccionario)
-	return JsonResponse(respuesta_final, safe=False)
-
-"""@csrf_exempt
-def comentarios_Peliculas(request, pelicula_id):
-	if request.method != 'POST':
-		return ("Tua nai e unha santa")
-	json_peticion = json.loads(request.body)
-	comentario = Comentariospeliculas()
-	comentario.comentario = json_peticion['nuevo_comentario']
-	comentario.pelicula = Pelicula.objects.get(id = pelicula_id)
-	comentario.save()
-	return JsonResponse({"status:" "guardado correctamente"})
-
-@csrf_exempt
-def comentarios_Series(request, serie_id):
-        if request.method != 'POST':
-                return ("Tua nai e unha santa")
-        json_peticion = json.loads(request.body)
-        comentario = Comentariosseries()
-        comentario.comentario = json_peticion['nuevo_comentario']
-        comentario.series = Series.objects.get(id = serie_id)
-        comentario.save()
-        return JsonResponse({"status:" "guardado correctamente"})
-"""
 
 @csrf_exempt
 def peliculas_nombre(request):
@@ -78,6 +44,8 @@ def peliculas_nombre(request):
 		]
 
 		return JsonResponse({'peliculas': peliculas_data, 'total': paginator.count, 'page': page}, status=200)
+	else:
+		return JsonResponse({"Error: no se encuentra la URL"}, status=404)
 
 @csrf_exempt
 def series_nombre(request):
@@ -110,8 +78,9 @@ def series_nombre(request):
 			} for serie in series
 		]
 
-	return JsonResponse({'series': series_data, 'total': paginator.count, 'page': page}, status=200)
-
+		return JsonResponse({'series': series_data, 'total': paginator.count, 'page': page}, status=200)
+	else:
+		return JsonResponse({"Error: no se ha encontrado la dirección"}, status=404)
 
 @csrf_exempt
 def actores_nombre(request):
@@ -135,12 +104,30 @@ def actores_nombre(request):
 				'nombre': actores.nombre,
 				'apellidos': actores.apellidos,
 				'edad': actores.edad,
-				'peliculaId': actores.peliculaid.pk,
-				'serieId': actores.serieid.pk, 
+				'peliculaId': actores.peliculaid.id if actores.peliculaid is not None else None,
+				'serieId': actores.serieid.id if actores.serieid is not None else None, 
 				'nombreFicticio': actores.nombreficticio,
 				'foto': actores.foto
 			} for actores in actor
 		]
 
-	return JsonResponse({'actores': actores_data, 'total': paginator.count, 'page': page}, status=200)
+		return JsonResponse({'actores': actores_data, 'total': paginator.count, 'page': page}, status=200)
+	else:
+		return JsonResponse({"Error: no se ha encontrado la dirección"}, status=404)
+
+@csrf_exempt
+def plataformas_nombre(request, plataformas_name):
+	if request.method == 'GET':
+		plataformas = Plataformas.objects.filter(nombre = plataformas_name)
+		array = []
+		for plataforma in plataformas:
+			diccionario = {}
+			diccionario['id'] = plataforma.id
+			diccionario['peliculaId'] = plataforma.peliculaid.id
+			diccionario['serieId'] = plataforma.serieid.id
+			array.append(diccionario)
+		return JsonResponse(array, safe = False)
+	else:
+		return  JsonResponse({"Error: Unauthorized"}, status=401)
+
 
