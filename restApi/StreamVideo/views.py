@@ -17,9 +17,6 @@ from django.views.decorators.http import require_POST
 
 def devolver_peliculas_por_id(request, id_solicitado):
 	pelicula=Peliculas.objects.get(id=id_solicitado)
-	#El comentariospeliculas debe ir todo en minusculas en la 
-	#sentencia de abajo pq su madre trabaja en colombia
-	comentarios=pelicula.comentariospeliculas_set.all()
 	lista_comentarios=[]
 	for fila_comentario_sql in comentarios:
 		diccionario={}
@@ -36,8 +33,6 @@ def devolver_peliculas_por_id(request, id_solicitado):
 
 def devolver_series_por_id(request, id_solicitado):
         serie=Series.objects.get(id=id_solicitado)
-        #El comentariospeliculas debe ir todo en minusculas en la 
-        #sentencia de abajo pq su madre trabaja en colombia
         comentarios=serie.comentariosseries_set.all()
         lista_comentarios=[]
         for fila_comentario_sql in comentarios:
