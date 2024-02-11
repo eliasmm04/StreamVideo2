@@ -19,7 +19,8 @@ from StreamVideo import views
 
 urlpatterns = [
     path('admin/',admin.site.urls),
-    path('peliculas' , views.devolver_peliculas),
-    path('series' , views.devolver_series),
-    path('favoritos' , views.favoritosview)
+    path('peliculasfav' , views.devolver_peliculas_favoritas),
+    path('seriesfav' , views.devolver_series_favoritas),
+    path('favoritos' , views.favoritosview),
+    path('logout/<int:user_id>', views.logout)
 ]
