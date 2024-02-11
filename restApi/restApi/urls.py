@@ -20,5 +20,7 @@ from StreamVideo import views
 urlpatterns = [
     path('admin/',admin.site.urls),
     path('peliculas' , views.devolver_peliculas),
+    path('series/<int:serieId>/comentarios' , views.devolver_comentarios_series),
+    path('peliculas/<int:peliculaId>/comentarios' , views.devolver_comentarios_peliculas),
 ]
 
