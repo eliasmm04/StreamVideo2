@@ -50,61 +50,65 @@ def devolver_series_por_id(request, id_solicitado):
         return JsonResponse(resultado, json_dumps_params={'ensure_ascii':False})
 
 @csrf_exempt
-def PostPeliculaComentarios(request, peliculaId):
+def devolver_comentarios_peliculas(request, peliculaId):
     if request.method == 'POST':
         session_token = request.headers.get('SesionToken')
-        usuario = Users.objects.filter(sesiontoken=session_token).first()
+        usuario = Users.objects.filter(sessiontoken=session_token).first()
         if not usuario:
-        	return JsonResponse({"error": "Unauthorized"}, status=401)
+            return JsonResponse({'error': 'Unauthorized'}, status=401)
+
     try:
         json_peticion = json.loads(request.body)
-        nuevo_comentario = json_peticion.get('nuevo_comentario')
+        nuevo_comentario = json_peticion.get('nuevo comentario')
 
         if not nuevo_comentario:
-        	return JsonResponse({"error": "Falta el nuevo comentario en la solicitud."}, status=400)
+            return JsonResponse({'error': 'falta el nuevo comentario en la solicitud'}, status=400)
 
-        pelicula = Peliculas.objects.get(id=pelicula.id)
-        comentario = Comentariospeliculas(comentario=nuevo_comentario, pelicula=pelicula)
+        pelicula = Peliculas.objects.get(id=serieId)
+        comentario = Comentariospeliculas(comentario=nuevo_comentario, peliculaid=pelicula)
         comentario.save()
 
-        comentarios_actualizados = list(pelicula.Comentariospeliculas_set.values('id', 'comentario'))
+        comentarios_actualizados = Comentariospeliculas.objects.filter(peliculaid=pelicula)
 
-        return JsonResponse({"status": "ok", "comentarios": comentarios_actualizados}, status=201)
+        comentarios_json = [{'id': comentario.id, 'comentario': comentario.comentario} for comentario in comentarios_actualizados]
+
+        return JsonResponse({'status': 'ok', 'comentarios': comentarios_json}, status=201)
 
     except json.JSONDecodeError:
-        return JsonResponse({"error": "Error al decodificar el JSON."}, status=400)
-    except Tpeliculas.DoesNotExist:
-        return JsonResponse({"error": "La pelicula no existe."}, status=404)
+        return JsonResponse({'error': 'Error al decodificar el Json'}, status=400)
+    except Series.DoesNotExist:
+        return JsonResponse({'error': 'La serie no existe'}, status=404)
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt
-def devolver_comentarios_series (request, serieId ):
-        if request.method == 'POST':
-                session_token = request.headers.get('SesionToken')
-                usuario = Users.objects.filter(sesiontoken=session_token).first()
-                if not usuario:
-                	return JsonResponse({'error':'Unauthorized'}, status=401)
-        try
-                json_peticion = json.loads(request.body)
-                nuevo_comentario = json_peticion.get('nuevo comentario')
-        
-                if not nuevo_comentario:
-                        return JsonResponse({'error':'falta el nuevo comentario en la solicitud'},estatus=400)
+def devolver_comentarios_series(request, serieId):
+    if request.method == 'POST':
+        session_token = request.headers.get('SesionToken')
+        usuario = Users.objects.filter(sessiontoken=session_token).first()
+        if not usuario:
+            return JsonResponse({'error': 'Unauthorized'}, status=401)
 
-                serie = Series.objects.get(id=serie.id)
-                comentario = Comentariosseries(comentario=nuevo_comentario, serie=serie)
-                comentario.save()
+    try:
+        json_peticion = json.loads(request.body)
+        nuevo_comentario = json_peticion.get('nuevo comentario')
 
-                comentarios_actualizados = list(serie.Comentariosseries_set.values('id','comentario'))
+        if not nuevo_comentario:
+            return JsonResponse({'error': 'falta el nuevo comentario en la solicitud'}, status=400)
 
-                return JsonResponse({'status':'ok','comentarios':comentarios_actualizados},status=201)
+        serie = Series.objects.get(id=serieId)
+        comentario = Comentariosseries(comentario=nuevo_comentario, serieid=serie)  # Asegúrate de asignar la serie al comentario
+        comentario.save()
 
-        except json.JSONDecodeError:
-                return JsonResponse({'error':'Error al decodificar el Json'}, status=400)
-        except Tseries.DoesNotExist:
-                return JsonResponse({'error':'La serie no existe'}, status=404)
-        except Exception as e:
-                return JsonResponse({'error': str(e)} ,status=500)
+        comentarios_actualizados = Comentariosseries.objects.filter(serieid=serie)  # Filtra los comentarios por la serie
 
+        comentarios_json = [{'id': comentario.id, 'comentario': comentario.comentario} for comentario in comentarios_actualizados]
 
+        return JsonResponse({'status': 'ok', 'comentarios': comentarios_json}, status=201)
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Error al decodificar el Json'}, status=400)
+    except Series.DoesNotExist:
+        return JsonResponse({'error': 'La serie no existe'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
