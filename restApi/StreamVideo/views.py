@@ -31,10 +31,10 @@ def PostPeliculaComentarios(request, peliculaId):
             return JsonResponse({"error": "Falta el nuevo comentario en la solicitud."}, status=400)
 
         pelicula = Tpeliculas.objects.get(id=pelicula.id)
-        comentario = Tcomentarios(comentario=nuevo_comentario, pelicula=pelicula)
+        comentario = Tcomentariospeliculas(comentario=nuevo_comentario, pelicula=pelicula)
         comentario.save()
 
-        comentarios_actualizados = list(pelicula.tcomentarios_set.values('id', 'comentario'))
+        comentarios_actualizados = list(pelicula.tcomentariospeliculas_set.values('id', 'comentario'))
 
         return JsonResponse({"status": "ok", "comentarios": comentarios_actualizados}, status=201)
 
@@ -61,10 +61,10 @@ def devolver_comentarios_series (request, serieId ):
                         return JsonResponse({'error':'falta el nuevo comentario en la solicitud'},estatus=400)
 
                 serie = Tseries.objects.get(id=serie.id)
-                comentario = Tcomentarios(comentario=nuevo_comentario, serie=serie)
+                comentario = Tcomentariosseries(comentario=nuevo_comentario, serie=serie)
                 comentario.save()
 
-                comentarios_actualizados = list(serie.tcomentarios_set.values('id','comentario'))
+                comentarios_actualizados = list(serie.tcomentariosseries_set.values('id','comentario'))
 
                 return JsonResponse({'status':'ok','comentarios':comentarios_actualizados},status=201)
 
