@@ -20,8 +20,6 @@ from StreamVideo import views
 urlpatterns = [
     path('admin/',admin.site.urls),
     path('peliculas' , views.devolver_peliculas),
-    path('peliculas/favoritos' , views.devolver_peliculas_favoritas),
-    path('series/favoritos' , views.devolver_series_favoritas),
-
+    path('series' , views.devolver_series),
+    path('favoritos' , views.favoritosview)
 ]
-
