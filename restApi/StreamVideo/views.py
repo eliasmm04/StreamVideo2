@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views import View
 from .models import Peliculas
 from .models import Comentariospeliculas
+from .models import Comentariosseries
 from .models import Series
 from .models import Plataformas
 from .models import Users
@@ -49,7 +50,6 @@ def devolver_series_por_id(request, id_solicitado):
         return JsonResponse(resultado, json_dumps_params={'ensure_ascii':False})
 
 @csrf_exempt
-
 def PostPeliculaComentarios(request, peliculaId):
     if request.method == 'POST':
         session_token = request.headers.get('SesionToken')
@@ -78,8 +78,7 @@ def PostPeliculaComentarios(request, peliculaId):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
 
-@crsf_exempt
-
+@csrf_exempt
 def devolver_comentarios_series (request, serieId ):
         if request.method == 'POST':
                 session_token = request.headers.get('SesionToken')
