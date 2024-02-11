@@ -55,13 +55,13 @@ def PostPeliculaComentarios(request, peliculaId):
         session_token = request.headers.get('SesionToken')
         usuario = Users.objects.filter(sesiontoken=session_token).first()
         if not usuario:
-        return JsonResponse({"error": "Unauthorized"}, status=401)
+        	return JsonResponse({"error": "Unauthorized"}, status=401)
     try:
         json_peticion = json.loads(request.body)
         nuevo_comentario = json_peticion.get('nuevo_comentario')
 
         if not nuevo_comentario:
-            return JsonResponse({"error": "Falta el nuevo comentario en la solicitud."}, status=400)
+        	return JsonResponse({"error": "Falta el nuevo comentario en la solicitud."}, status=400)
 
         pelicula = Peliculas.objects.get(id=pelicula.id)
         comentario = Comentariospeliculas(comentario=nuevo_comentario, pelicula=pelicula)
@@ -85,7 +85,7 @@ def devolver_comentarios_series (request, serieId ):
                 session_token = request.headers.get('SesionToken')
                 usuario = Users.objects.filter(sesiontoken=session_token).first()
                 if not usuario:
-                return JsonResponse({'error':'Unauthorized'}, status=401)
+                	return JsonResponse({'error':'Unauthorized'}, status=401)
         try
                 json_peticion = json.loads(request.body)
                 nuevo_comentario = json_peticion.get('nuevo comentario')
@@ -93,7 +93,7 @@ def devolver_comentarios_series (request, serieId ):
                 if not nuevo_comentario:
                         return JsonResponse({'error':'falta el nuevo comentario en la solicitud'},estatus=400)
 
-                serie = Tseries.objects.get(id=serie.id)
+                serie = Series.objects.get(id=serie.id)
                 comentario = Comentariosseries(comentario=nuevo_comentario, serie=serie)
                 comentario.save()
 
