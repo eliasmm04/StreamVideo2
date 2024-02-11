@@ -97,10 +97,10 @@ def devolver_comentarios_series(request, serieId):
             return JsonResponse({'error': 'falta el nuevo comentario en la solicitud'}, status=400)
 
         serie = Series.objects.get(id=serieId)
-        comentario = Comentariosseries(comentario=nuevo_comentario, serieid=serie)  # Asegúrate de asignar la serie al comentario
+        comentario = Comentariosseries(comentario=nuevo_comentario, serieid=serie)
         comentario.save()
 
-        comentarios_actualizados = Comentariosseries.objects.filter(serieid=serie)  # Filtra los comentarios por la serie
+        comentarios_actualizados = Comentariosseries.objects.filter(serieid=serie)
 
         comentarios_json = [{'id': comentario.id, 'comentario': comentario.comentario} for comentario in comentarios_actualizados]
 
