@@ -357,6 +357,7 @@ CREATE TABLE `users` (
   `favoritoId` int(11) DEFAULT NULL,
   `comentariopeliculaId` int(11) DEFAULT NULL,
   `comentarioserieId` int(11) DEFAULT NULL,
+  `sessionToken` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_favoritoId` (`favoritoId`),
   KEY `FK_comentariopeliculaId` (`comentariopeliculaId`),
@@ -374,16 +375,16 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'John','Doe','Contraseña123','123456789','john.doe@email.com',1,1,1),
-(2,'Jane','Smith','OtraContraseña','987654321','jane.smith@email.com',2,2,2),
-(3,'Michael','Johnson','Pass123','555666777','michael.johnson@email.com',3,3,2),
-(4,'Emily','Williams','SecurePwd','111222333','emily.williams@email.com',4,4,4),
-(5,'David','Brown','SecretPass','999888777','david.brown@email.com',5,5,5),
-(6,'Olivia','Davis','Hidden123','333444555','olivia.davis@email.com',6,6,6),
-(7,'William','Martinez','TopSecret','777888999','william.martinez@email.com',7,7,7),
-(8,'Sophia','Anderson','Confidential','444555666','sophia.anderson@email.com',8,8,8),
-(9,'James','Taylor','Secure123','666777888','james.taylor@email.com',9,9,9),
-(10,'Emma','Hernandez','SafePwd','888999000','emma.hernandez@email.com',10,10,10);
+(1,'John','Doe','Contraseña123','123456789','john.doe@email.com',1,1,1,NULL),
+(2,'Jane','Smith','OtraContraseña','987654321','jane.smith@email.com',2,2,2,NULL),
+(3,'Michael','Johnson','Pass123','555666777','michael.johnson@email.com',3,3,2,NULL),
+(4,'Emily','Williams','SecurePwd','111222333','emily.williams@email.com',4,4,4,NULL),
+(5,'David','Brown','SecretPass','999888777','david.brown@email.com',5,5,5,NULL),
+(6,'Olivia','Davis','Hidden123','333444555','olivia.davis@email.com',6,6,6,NULL),
+(7,'William','Martinez','TopSecret','777888999','william.martinez@email.com',7,7,7,NULL),
+(8,'Sophia','Anderson','Confidential','444555666','sophia.anderson@email.com',8,8,8,NULL),
+(9,'James','Taylor','Secure123','666777888','james.taylor@email.com',9,9,9,NULL),
+(10,'Emma','Hernandez','SafePwd','888999000','emma.hernandez@email.com',10,10,10,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -396,4 +397,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-29 10:53:30
+-- Dump completed on 2024-01-30 13:25:58

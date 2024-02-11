@@ -21,10 +21,13 @@ urlpatterns = [
     path('admin/',admin.site.urls),
     path('peliculas' , views.devolver_peliculas),
     path('series' , views.devolver_series),
+    path('peliculasPorNombre', views.peliculas_nombre),
+    path('seriesPorNombre', views.series_nombre),
+    path('actoresPorNombre', views.actores_nombre),
+    path('plataformas_nombre/<str:plataformas_name>', views.plataformas_nombre),
     path('peliculas/<int:id_solicitado>' , views.devolver_peliculas_por_id),
     path('series/<int:id_solicitado>' , views.devolver_series_por_id),
-    path('peliculas/<int:id_solicitado>/comentarios' , views.comentarios_Peliculas),
-    path('series/<int:id_solicitado>/comentarios' , views.comentarios_Series),
-    path('agregarUsuarios' , views.user_post),
+    path('register', views.register),
+    path('login', views.login),
+    path('logout/<int:user_id>', views.logout),
 ]
-
