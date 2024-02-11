@@ -17,7 +17,7 @@ def devolver_peliculas(request):
 
 @csrf_exempt
 
-def devolver_comentarios_peliculas(request, peliculaId):
+def PostPeliculaComentarios(request, peliculaId):
     if request.method == 'POST':
         session_token = request.headers.get('SesionToken')
         usuario = Users.objects.filter(sesiontoken=session_token).first()
@@ -47,7 +47,7 @@ def devolver_comentarios_peliculas(request, peliculaId):
 
 @crsf_exempt
 
-def devolver_comentarios_series (request, serieId ):
+def PostSeriesComentarios (request, serieId ):
         if request.method == 'POST':
         session_token = request.headers.get('SesionToken')
         usuario = Users.objects.filter(sesiontoken=session_token).first()
