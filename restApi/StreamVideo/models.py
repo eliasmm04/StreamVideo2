@@ -107,6 +107,10 @@ class Users(models.Model):
     comentariopeliculaid = models.ForeignKey(Comentariospeliculas, models.DO_NOTHING, db_column='comentariopeliculaId')  # Field name made lowercase.
     comentarioserieid = models.ForeignKey(Comentariosseries, models.DO_NOTHING, db_column='comentarioserieId')  # Field name made lowercase.
 
+    def save(self, *args, **kwargs):
+        self.contraseña=make_password(self.contraseña)
+        super(Users, self).save(*args, **kwargs)
+
     class Meta:
         managed = False
         db_table = 'users'
