@@ -12,7 +12,7 @@ CREATE TABLE users (
     email VARCHAR(100) ,
     favoritoId INT,
     comentariopeliculaId INT ,
-    comentarioserieId INT,
+    comentarioserieId INT ,
     sessionToken VARCHAR(500)
 );
 
