@@ -5,44 +5,45 @@ use streamvideodb;
 -- Crear la tabla 'users'
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    apellidos VARCHAR(100) NOT NULL,
-    contraseña VARCHAR(200) NOT NULL,
+    nombre VARCHAR(50) ,
+    apellidos VARCHAR(100) ,
+    contraseña VARCHAR(200) ,
     telefono CHAR(9),
-    email VARCHAR(100) NOT NULL,
-    favoritoId INT NOT NULL,
-    comentariopeliculaId INT NOT NULL,
-    comentarioserieId INT NOT NULL
+    email VARCHAR(100) ,
+    favoritoId INT,
+    comentariopeliculaId INT ,
+    comentarioserieId INT,
+    sessionToken VARCHAR(500)
 );
 
 -- Crear la tabla 'peliculas'
 CREATE TABLE peliculas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    genero VARCHAR(200) NOT NULL,
-    año YEAR NOT NULL,
-    plataformaId INT NOT NULL,
-    descripcion VARCHAR(300) NOT NULL,
-    urlImagen VARCHAR(5500) NOT NULL,
-    actorId INT NOT NULL,
-    duracion INT NOT NULL,
-    valoracion INT NOT NULL,
-    comentarioId INT NOT NULL
+    nombre VARCHAR(50),
+    genero VARCHAR(200) ,
+    año YEAR ,
+    plataformaId INT ,
+    descripcion VARCHAR(300),
+    urlImagen VARCHAR(5500) ,
+    actorId INT ,
+    duracion INT,
+    valoracion INT ,
+    comentarioId INT 
 );
 
 -- Crear la tabla 'series'
 CREATE TABLE series (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    genero VARCHAR(30) NOT NULL,
-    año YEAR NOT NULL,
-    numTemporadas INT NOT NULL,
-    plataformaId INT NOT NULL,
-    descripcion VARCHAR(300) NOT NULL,
-    urlImagen VARCHAR(2000) NOT NULL,
-    actorId INT NOT NULL,
-    valoracion INT NOT NULL,
-    comentarioId INT NOT NULL
+    nombre VARCHAR(50) ,
+    genero VARCHAR(30) ,
+    año YEAR ,
+    numTemporadas INT ,
+    plataformaId INT ,
+    descripcion VARCHAR(300) ,
+    urlImagen VARCHAR(2000) ,
+    actorId INT ,
+    valoracion INT ,
+    comentarioId INT 
 );
 
 -- Crear la tabla 'comentariosseries'
@@ -50,7 +51,7 @@ CREATE TABLE comentariosseries (
     id INT AUTO_INCREMENT PRIMARY KEY,
     comentario VARCHAR(800),
     serieId INT,
-    userId INT NOT NULL
+    userId INT 
 );
 
 -- Crear la tabla 'comentariospeliculas'
@@ -58,7 +59,7 @@ CREATE TABLE comentariospeliculas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     comentario VARCHAR(800),
     peliculaId INT,
-    userId INT NOT NULL
+    userId INT 
 );
 
 -- Crear la tabla 'favoritos'
@@ -66,14 +67,14 @@ CREATE TABLE favoritos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     peliculaId INT,
     serieId INT,
-    userId INT NOT NULL,
-    esFavorito BOOLEAN NOT NULL
+    userId INT ,
+    esFavorito BOOLEAN 
 );
 
 -- Crear la tabla 'plataformas'
 CREATE TABLE plataformas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) ,
     peliculaId INT,
     serieId INT
 );
@@ -81,13 +82,13 @@ CREATE TABLE plataformas (
 -- Crear la tabla 'actor'
 CREATE TABLE actor (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    apellidos VARCHAR(100) NOT NULL,
-    edad INT NOT NULL,
+    nombre VARCHAR(100) ,
+    apellidos VARCHAR(100) ,
+    edad INT ,
     peliculaId INT,
     serieId INT,
-    nombreFicticio VARCHAR(50) NOT NULL,
-    foto VARCHAR(500) NOT NULL
+    nombreFicticio VARCHAR(50) ,
+    foto VARCHAR(500) 
 );
 
 
