@@ -26,5 +26,8 @@ urlpatterns = [
     path('peliculas/<int:id_solicitado>/comentarios' , views.comentarios_Peliculas),
     path('series/<int:id_solicitado>/comentarios' , views.comentarios_Series),
     path('agregarUsuarios' , views.user_post),
+    path('peliculasfav' , views.devolver_peliculas_favoritas),
+    path('seriesfav' , views.devolver_series_favoritas),
+    path('favoritos' , views.favoritosview),
+    path('logout/<int:user_id>', views.logout)
 ]
-
