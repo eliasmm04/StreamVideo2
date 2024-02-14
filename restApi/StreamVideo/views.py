@@ -17,6 +17,7 @@ from django.views.decorators.http import require_POST
 
 # Create your views here.
 # Get de peliculas
+# Devuelve los campos de la pelicula especificada 
 def devolver_peliculas(request):
 	lista=Peliculas.objects.all()
 	respuesta_final=[]
@@ -38,6 +39,7 @@ def devolver_peliculas(request):
 
 
 #get de series
+# Devuelve los campos de la serie especificada 
 def devolver_series(request):
 	lista=Series.objects.all()
 	respuesta_final=[]
@@ -57,12 +59,13 @@ def devolver_series(request):
 		respuesta_final.append(diccionario)
 	return JsonResponse(respuesta_final, safe=False)
 
-# Get series by id
-
-
-
 SECRET_KEY = 'claveTremendamentesegura.'
+""" 
+Crea un token JWT (JSON Web Token) para el usuario dado.
+Returns:
+        str: Token JWT generado.
 
+"""
 def crear_token(user_id):
 	payload = {
 		'id': user_id,
@@ -73,6 +76,14 @@ def crear_token(user_id):
 	return token
 
 def verify_token(request):
+	    """
+    Verifica un token JWT incluido en la solicitud HTTP.
+
+    Returns:
+      		Una tupla con dos elementos:
+            - JsonResponse o None: Si hay un error, devuelve una respuesta JSON con un mensaje de error.
+            - dict or None: Si el token es válido, devuelve el payload decodificado.
+    """
 	token = request.META.get('HTTP_AUTHORIZATION',None)
 	if not token:
 		return JsonResponse({'message':'Token is missing!'}, status=401), None
@@ -87,7 +98,8 @@ def verify_token(request):
 	except jwt.InvalidTokenError:
 		return JsonResponse({'message':'Invalid token!'}, status=401), None
 
-
+# login
+# cuando inicias sesion la primera vez lo hace perfectamente y cuando cierras tambien lo hace correctamente pero cuando inicias sesion por segunda vez te sale el error de contraseña incorrecta aún poniendo la contraseña bien
 
 @csrf_exempt
 def login(request):
