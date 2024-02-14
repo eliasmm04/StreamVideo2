@@ -144,10 +144,6 @@ class Users(models.Model):
     def save(self, *args, **kwargs):
         self.contraseña=make_password(self.contraseña)
         super(Users, self).save(*args, **kwargs)
-    email = models.CharField(max_length=100, blank=True, null=True)
-    favoritoid = models.ForeignKey(Favoritos, models.DO_NOTHING, db_column='favoritoId', blank=True, null=True)  # Field name made lowercase.
-    comentariopeliculaid = models.ForeignKey(Comentariospeliculas, models.DO_NOTHING, db_column='comentariopeliculaId', blank=True, null=True)  # Field name made lowercase.
-    comentarioserieid = models.ForeignKey(Comentariosseries, models.DO_NOTHING, db_column='comentarioserieId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
