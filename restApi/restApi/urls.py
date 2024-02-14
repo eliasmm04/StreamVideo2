@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/',admin.site.urls),
     path('series/<int:id_solicitado>' , views.devolver_series_por_id),
     path('peliculas/<int:id_solicitado>' , views.devolver_peliculas_por_id),
-    path('series/<int:serieId>/comentarios' , views.devolver_comentarios_series),
-    path('peliculas/<int:peliculaId>/comentarios' , views.devolver_comentarios_peliculas),
+    path('series/<int:serieId>/comentarios' , views.crear_comentarios_series),
+    path('peliculas/<int:peliculaId>/comentarios' , views.crear_comentarios_peliculas),
 ]
 
