@@ -19,8 +19,9 @@ from django.urls import path
 from StreamVideo import views
 
 urlpatterns = [
-    path('peliculas/<int:id_solicitado>' , views.devolver_peliculas_por_id),
+    path('admin/',admin.site.urls),
     path('series/<int:id_solicitado>' , views.devolver_series_por_id),
-    path('peliculas/<int:peliculaId>/comentarios/', views.PostPeliculaComentarios, name='post_pelicula_comentarios'),
-    path('series/<int:serieId>/comentarios/', views.PostSeriesComentarios, name='post_serie_comentarios'),
+    path('peliculas/<int:id_solicitado>' , views.devolver_peliculas_por_id),
+    path('series/<int:serieId>/comentarios' , views.crear_comentarios_series),
+    path('peliculas/<int:peliculaId>/comentarios' , views.crear_comentarios_peliculas),
 ]
